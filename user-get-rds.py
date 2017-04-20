@@ -13,12 +13,11 @@ rdshost = os.environ['rdshost']
 name = os.environ['name']
 dbname = os.environ['dbname']
 
-print ('password is...' + ENCpassword)
 
 # Decrypt code should run once and variables stored outside of the function
 # handler so that these are decrypted once per container
 DECpassword = boto3.client('kms').decrypt(CiphertextBlob=b64decode(ENCpassword))['Plaintext']
-print ('password is...' + DECpassword)
+print('password is...' + DECpassword)
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -35,19 +34,16 @@ logger.info("SUCCESS: Connection to RDS mysql instance succeeded")
 def lambda_handler(event, context):
 
     with conn.cursor() as cur:
-        # cur.execute("create table Employee1 ( EmpID  int NOT NULL AUTO_INCREMENT,
-        # Name varchar(255) NOT NULL, PRIMARY KEY (EmpID))")
-        sqlstatement = "insert into Employee1 (Name) values(\"" + event['queryStringParameters']['name'] + "\")"
-        print(sqlstatement)
+        # Read a single record
+        sqlstatement = "SELECT MAX(EmpID), Name FROM Employee1"
         cur.execute(sqlstatement)
-        conn.commit()
-        print("apparently successful insert?")
+        result = cur.fetchone()
+        #print(result)
 
-    response = {"added": str(event['queryStringParameters']['name'])}
     success = {
         "statusCode": 200,
         "headers": {"Content-Type": "application/json"},
-        "body": json.dumps(response)
+        "body": str(result)
     }
 
     return success
