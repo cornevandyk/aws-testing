@@ -1,8 +1,6 @@
 from __future__ import print_function
 import boto3
 import json
-import random
-import string
 
 def snsPublish(topic, subject, message):
     """
@@ -12,7 +10,7 @@ def snsPublish(topic, subject, message):
     :param message: message body, should be JSON format
     """
 
-    boto3.setup_default_session(profile_name='default')
+    #boto3.setup_default_session(profile_name='default')
     sns = boto3.client('sns')
     print(message)
     response = sns.publish(TopicArn=topic, Subject=subject, Message=json.dumps(message, indent=4))
@@ -20,20 +18,14 @@ def snsPublish(topic, subject, message):
 
 
 def lambda_handler(event, context):
-
     topic = "arn:aws:sns:eu-west-1:282415712953:aacorne-alfoffloader"
     subject = "random message to SNS"
-    message = {"key": "".join([random.choice(string.ascii_lowercase) for n in xrange(10)])}
-
-    snsPublish(topic, subject, message)
+    snsPublish(topic, subject, event["body"])
 
     success = {
         "statusCode": 200,
         "headers": {"Content-Type": "application/json"},
-        "body": json.dumps(message, indent=4)
+        "body": json.dumps(event["body"], indent=4)
     }
 
     return success
-
-
-lambda_handler("1", "2")
