@@ -1,3 +1,16 @@
+"""
+
+:author:         Corne van Dyk
+:createdate:     03/05/2017
+:changelog:
+    v1  03/05/2017 first release
+
+TODO & future improvements:
+    - validate that the servicelist isn't empty
+    - validate that the called lambda exists
+"""
+
+
 from __future__ import print_function
 import boto3
 import json
@@ -20,7 +33,6 @@ def publish_firehose(delivery_stream, record):
             "Data": str(record)
         }
     )
-    print(json.dumps(response, indent=4))
 
     return response
 
