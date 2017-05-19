@@ -1,0 +1,4 @@
+artifacts:
+  files:
+    - pymysql/*
+    - user-get-rds.py
