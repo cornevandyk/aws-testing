@@ -1,6 +1,6 @@
 """
 curl -X PUT
-    --header 'x-api-key: zbd1yDcarlGqysyLMRai8RHB2M0f9qo2tcIH6d89'
+    --header 'x-api-key: XXX'
     --header 'Content-Type: application/json'
     -d '{
         "Data": {
@@ -8,7 +8,7 @@ curl -X PUT
             "name": "corne.vandy",
             "email": "corne.vandy@jumo.world",
         }
-    }' 'https://fmkry7g7k7.execute-api.eu-west-1.amazonaws.com/staging'
+    }' 'https://XXX.execute-api.eu-west-1.amazonaws.com/staging'
 
 
 CanonicalRequest =
