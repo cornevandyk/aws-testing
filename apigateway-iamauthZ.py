@@ -39,10 +39,10 @@ import requests
 # ************* REQUEST VALUES *************
 method = 'PUT'
 service = 'execute-api'
-host = 'fmkry7g7k7.execute-api.eu-west-1.amazonaws.com'
+host = 'XXX.execute-api.eu-west-1.amazonaws.com'
 region = 'eu-west-1'
-endpoint = "https://fmkry7g7k7.execute-api.eu-west-1.amazonaws.com/staging"
-x_api_key = "zbd1yDcarlGqysyLMRai8RHB2M0f9qo2tcIH6d89"
+endpoint = "https://XXX.execute-api.eu-west-1.amazonaws.com/XXX"
+x_api_key = "XXX"
 
 # POST requests use a content type header. For DynamoDB,
 # the content is JSON.
@@ -51,7 +51,9 @@ content_type = 'application/json'
 # Request parameters for CreateTable--passed in a JSON block.
 request_parameters = str({
     "Data": {
-        "type": "user"
+        "type": "user",
+        "foo": "bar",
+        "price": 3
     }
 })
 content_length = str(len(request_parameters))
@@ -73,8 +75,8 @@ def getSignatureKey(key, date_stamp, regionName, serviceName):
 
 # Read AWS access key from env. variables or configuration file. Best practice is NOT
 # to embed credentials in code.
-access_key = "AKIAIEUAZ2SQPWIVK7UA"
-secret_key = "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"
+access_key = "XXX"
+secret_key = "XXX"
 
 if access_key is None or secret_key is None:
     print('No access key is available.')
@@ -93,7 +95,7 @@ date_stamp = t.strftime('%Y%m%d') # Date w/o time, used in credential scope
 
 # Step 2: Create canonical URI--the part of the URI from domain to query
 # string (use '/' if no path)
-canonical_uri = '/staging'
+canonical_uri = '/prod/offload'
 
 ## Step 3: Create the canonical query string. In this example, request
 # parameters are passed in the body of the request and the query string
