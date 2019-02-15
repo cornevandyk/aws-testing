@@ -965,7 +965,7 @@ class Connection(object):
             bytes_to_read = btrl + (btrh << 16)
             if packet_number != self._next_seq_id:
                 raise err.InternalError("Packet sequence number wrong - got %d expected %d" %
-                    (packet_number, self._next_seq_id))
+                                        (packet_number, self._next_seq_id))
             self._next_seq_id = (self._next_seq_id + 1) % 256
 
             recv_data = self._read_bytes(bytes_to_read)
